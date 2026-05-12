@@ -28,6 +28,7 @@
 .library-item h2.library-item-title--xs { font-size: 18px; line-height: 1.18; }
 .library-item h2.library-item-title--xxs { font-size: 15px; line-height: 1.18; }
 .library-item-author { display: inline; margin-left: .25em; color: #94a3b8; font-size: 13px; font-weight: 800; line-height: inherit; word-break: keep-all; overflow-wrap: break-word; vertical-align: baseline; }
+.library-item h2 .library-item-author { color: #94a3b8; -webkit-text-fill-color: #94a3b8; }
 .library-item-author--sm { font-size: 12px; line-height: 1.1; }
 .library-item-author--xs { font-size: 11px; line-height: 1.1; }
 .library-item-author--xxs { font-size: 10px; line-height: 1.15; }
