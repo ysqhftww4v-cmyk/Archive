@@ -1,7 +1,7 @@
-﻿@import "./base.css";
-@import "./header.css";
-@import "./search.css";
-@import "./main-preview.css";
-@import "./library.css";
-@import "./modal.css";
-@import "./responsive.css";
+@import "./base.css?v=10";
+@import "./header.css?v=10";
+@import "./search.css?v=10";
+@import "./main-preview.css?v=10";
+@import "./library.css?v=10";
+@import "./modal.css?v=10";
+@import "./responsive.css?v=10";
