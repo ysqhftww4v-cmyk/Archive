@@ -47,19 +47,15 @@
   .library-title-row { align-items: center; flex-direction: row; gap: 12px; }
   .library-title-row h1, .library-head h1 { font-size: 38px; }
   .library-title-row .button-primary { min-height: 48px; padding: 0 16px; border-radius: 16px; font-size: 14px; flex-shrink: 0; }
-  .library-filter { flex-wrap: nowrap; gap: 5px; align-items: center; }
-  .filter-button { min-height: 40px; padding: 0 12px; font-size: 13px; flex: 0 0 auto; }
+  .library-filter { flex-wrap: nowrap; gap: 7px; align-items: center; }
+  .filter-button { min-height: 40px; padding: 0 13px; font-size: 13px; flex: 0 0 auto; }
   .library-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; }
   .backup-tools { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
-  .library-filter .backup-tools { grid-column: auto; display: flex; gap: 2px; margin-left: auto; flex: 0 0 auto; max-width: 100%; }
-  .library-filter .tool-button { width: 34px; height: 40px; border-radius: 12px; flex: 0 0 34px; }
-  .library-filter .tool-button img { width: 23px; height: 23px; }
+  .library-filter .backup-tools { grid-column: auto; display: flex; gap: 2px; margin-left: auto; flex: 0 0 auto; }
+  .library-filter .tool-button { width: 34px; height: 40px; border-radius: 12px; }
+  .library-filter .tool-button img { width: 20px; height: 20px; }
   .tool-group, .tool-group select, .tool-button { width: 100%; }
-  .library-filter .tool-button { width: 34px; }
   .library-item { padding: 20px; border-radius: 24px; }
-  .library-item { color: var(--color-text); appearance: none; -webkit-appearance: none; }
-  .library-item h2 { color: #111827 !important; -webkit-text-fill-color: #111827 !important; }
-  .library-item h2 .library-item-author { color: #94a3b8 !important; -webkit-text-fill-color: #94a3b8 !important; }
   .library-item h2 { font-size: 23px; }
   .library-item h2.library-item-title--sm { font-size: 21px; }
   .library-item h2.library-item-title--xs { font-size: 18px; }
@@ -78,10 +74,4 @@
   .detail-actions .button-primary, .detail-delete-button { width: 100%; }
   .delete-confirm-box { padding: 14px; }
   .delete-confirm-panel div { display: grid; grid-template-columns: 1fr 1fr; }
-}
-
-@media (max-width: 380px) {
-  .library-filter { gap: 4px; }
-  .filter-button { padding: 0 10px; }
-  .library-filter .tool-button { width: 32px; flex-basis: 32px; }
 }
