@@ -31,7 +31,7 @@
 .novel-card h3.preview-work-title--sm { font-size: 22px; line-height: 1.12; }
 .novel-card h3.preview-work-title--xs { font-size: 18px; line-height: 1.12; }
 .novel-card h3.preview-work-title--xxs { font-size: 15px; line-height: 1.18; }
-.novel-card-author { display: inline-flex; flex: 0 1 auto; max-width: 40%; min-width: 0; overflow: hidden; overflow-wrap: anywhere; font-size: 13px; font-weight: 800; line-height: 1.1; color: #94a3b8; }
+.novel-card-author { display: inline-flex; flex: 0 1 auto; max-width: 40%; min-width: 0; overflow: hidden; overflow-wrap: anywhere; font-size: 13px; font-weight: 800; line-height: 1.1; color: #94a3b8; -webkit-text-fill-color: #94a3b8; }
 .novel-card-author--sm { font-size: 12px; }
 .novel-card-author--xs { font-size: 11px; line-height: 1.1; }
 .novel-card-author--xxs { font-size: 10px; line-height: 1.15; }
