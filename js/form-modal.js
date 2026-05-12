@@ -1,4 +1,4 @@
-function createWorkFormModal() {
+ï»¿function createWorkFormModal() {
   const modal = document.createElement("div");
 
   modal.className = "work-modal work-form-modal";
@@ -8,85 +8,85 @@ function createWorkFormModal() {
   modal.innerHTML = `
     <div class="work-modal-box">
       <div class="work-modal-head">
-        <h2 id="workFormTitle">ÀÛÇ° Ãß°¡ÇÏ±â</h2>
-        <button class="modal-close-button" type="button" aria-label="´İ±â">
+        <h2 id="workFormTitle">ì‘í’ˆ ì¶”ê°€í•˜ê¸°</h2>
+        <button class="modal-close-button" type="button" aria-label="ë‹«ê¸°">
           <img src="../image/close.svg" alt="" aria-hidden="true" />
         </button>
       </div>
 
       <form class="work-form">
         <label class="form-half">
-          ±¸ºĞ
+          êµ¬ë¶„
           <select name="type" required>
-            <option value="">±¸ºĞ ¼±ÅÃ</option>
-            <option value="webtoon">À¥Å÷</option>
-            <option value="webnovel">À¥¼Ò¼³</option>
-            <option value="manga">¸¸È­</option>
-            <option value="anime">¾Ö´Ï</option>
+            <option value="">êµ¬ë¶„ ì„ íƒ</option>
+            <option value="webtoon">ì›¹íˆ°</option>
+            <option value="webnovel">ì›¹ì†Œì„¤</option>
+            <option value="manga">ë§Œí™”</option>
+            <option value="anime">ì• ë‹ˆ</option>
           </select>
         </label>
 
         <label class="form-half">
-          Àå¸£
+          ì¥ë¥´
           <select name="genre" required>
-            <option value="">Àå¸£ ¼±ÅÃ</option>
+            <option value="">ì¥ë¥´ ì„ íƒ</option>
             ${createGenreOptions()}
           </select>
-          <input class="custom-genre-input" name="customGenre" type="text" placeholder="Àå¸£ ÀÔ·Â" hidden disabled />
+          <input class="custom-genre-input" name="customGenre" type="text" placeholder="ì¥ë¥´ ì…ë ¥" hidden disabled />
         </label>
 
         <label class="full">
-          ÀÛÇ°¸í
+          ì‘í’ˆëª…
           <input name="title" type="text" required />
           <span class="field-message title-message" aria-live="polite"></span>
         </label>
 
         <label class="full">
-          ÀÛ°¡
+          ì‘ê°€
           <input name="author" type="text" />
         </label>
 
         <label class="form-half">
-          »óÅÂ
+          ìƒíƒœ
           <select name="status" required>
-            <option value="">»óÅÂ ¼±ÅÃ</option>
-            <option value="completed">¿Ïµ¶</option>
-            <option value="paused">º¸·ù</option>
-            <option value="dropped">ÇÏÂ÷</option>
-            <option value="reading">ÀĞ´Â Áß</option>
+            <option value="">ìƒíƒœ ì„ íƒ</option>
+            <option value="completed">ì™„ë…</option>
+            <option value="paused">ë³´ë¥˜</option>
+            <option value="dropped">í•˜ì°¨</option>
+            <option value="reading">ì½ëŠ” ì¤‘</option>
           </select>
         </label>
 
         <label class="form-half">
-          ÆòÁ¡
+          í‰ì 
           <select name="rating">
-            <option value="">ÆòÁ¡ ¼±ÅÃ</option>
+            <option value="">í‰ì  ì„ íƒ</option>
             ${createRatingOptions()}
           </select>
         </label>
 
         <label class="full">
-          ÇöÀç È¸Â÷
-          <input name="progress" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="¿¹: 675" />
+          í˜„ì¬ íšŒì°¨
+          <input name="progress" type="text" inputmode="numeric" pattern="[0-9]*" placeholder="ì˜ˆ: 675" />
           <span class="field-message progress-message" aria-live="polite"></span>
         </label>
 
         <label class="full">
-          ÅÂ±×
-          <input name="tags" type="text" placeholder="¿¹: #ÇåÅÍ #°ÔÀÌÆ® ¶Ç´Â ÇåÅÍ, °ÔÀÌÆ®" />
+          íƒœê·¸
+          <input name="tags" type="text" placeholder="ì˜ˆ: #í—Œí„° #ê²Œì´íŠ¸ ë˜ëŠ” í—Œí„°, ê²Œì´íŠ¸" />
         </label>
 
         <label class="full">
-          ÀÛÇ°¼Ò°³
+          ì‘í’ˆì†Œê°œ
           <textarea name="description" rows="3"></textarea>
         </label>
 
         <label class="full">
-          °³ÀÎ ¸Ş¸ğ
+          ê°œì¸ ë©”ëª¨
           <textarea name="memo" rows="3"></textarea>
         </label>
 
-        <button class="button-primary full" type="submit">µî·ÏÇÏ±â</button>
+        <button class="button-primary full" type="submit">ë“±ë¡í•˜ê¸°</button>
       </form>
     </div>
     <div class="custom-modal-scrollbar" aria-hidden="true">
@@ -139,8 +139,8 @@ function openWorkFormModal(mode = "create", work = null) {
   state.workFormMode = mode;
   state.editingWorkId = work ? Number(work.id) : null;
 
-  modalTitle.textContent = mode === "edit" ? "ÀÛÇ° ¼öÁ¤ÇÏ±â" : "ÀÛÇ° Ãß°¡ÇÏ±â";
-  submitButton.textContent = mode === "edit" ? "¼öÁ¤ÇÏ±â" : "µî·ÏÇÏ±â";
+  modalTitle.textContent = mode === "edit" ? "ì‘í’ˆ ìˆ˜ì •í•˜ê¸°" : "ì‘í’ˆ ì¶”ê°€í•˜ê¸°";
+  submitButton.textContent = mode === "edit" ? "ìˆ˜ì •í•˜ê¸°" : "ë“±ë¡í•˜ê¸°";
   form.reset();
   resetWorkFormValidation(form);
 
@@ -204,7 +204,7 @@ function validateWorkTitle(form) {
   const titleInput = form.elements.title;
   const titleMessage = form.querySelector(".title-message");
   const isDuplicate = isDuplicateWorkTitle(form.elements.type.value, titleInput.value);
-  const message = isDuplicate ? "°°Àº ±¸ºĞ¿¡ ÀÌ¹Ì µî·ÏµÈ ÀÛÇ°ÀÔ´Ï´Ù." : "";
+  const message = isDuplicate ? "ê°™ì€ êµ¬ë¶„ì— ì´ë¯¸ ë“±ë¡ëœ ì‘í’ˆì…ë‹ˆë‹¤." : "";
 
   setFieldMessage(titleInput, titleMessage, message);
   return !message;
@@ -214,7 +214,7 @@ function validateProgress(form) {
   const progressInput = form.elements.progress;
   const progressMessage = form.querySelector(".progress-message");
   const hasInvalidValue = /\D/.test(progressInput.value);
-  const message = hasInvalidValue ? "¼ıÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä." : "";
+  const message = hasInvalidValue ? "ìˆ«ìë§Œ ì…ë ¥í•˜ì„¸ìš”." : "";
 
   setFieldMessage(progressInput, progressMessage, message);
   return !message;
@@ -314,7 +314,7 @@ function bindWorkFormModalEvents() {
     setFieldMessage(
       progressInput,
       workForm.querySelector(".progress-message"),
-      hasInvalidValue ? "¼ıÀÚ¸¸ ÀÔ·ÂÇÏ¼¼¿ä." : ""
+      hasInvalidValue ? "ìˆ«ìë§Œ ì…ë ¥í•˜ì„¸ìš”." : ""
     );
   });
 

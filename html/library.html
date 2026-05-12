@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ï»¿<!DOCTYPE html>
 <html lang="ko">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>º¸°üÇÔ | Little Library</title>
+  <title>ë³´ê´€í•¨ | Little Library</title>
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body data-page="library">
@@ -14,40 +14,40 @@
           <div class="logo-icon">L</div>
           <div class="logo-text">
             <strong>Little Library</strong>
-            <span>À¥Å÷ & À¥¼Ò¼³ & ¸¸È­ & ¾Ö´Ï</span>
+            <span>ì›¹íˆ° & ì›¹ì†Œì„¤ & ë§Œí™” & ì• ë‹ˆ</span>
           </div>
         </a>
 
         <form class="search-box">
-          <label class="search-scope-label" aria-label="°Ë»ö ¹üÀ§">
+          <label class="search-scope-label" aria-label="ê²€ìƒ‰ ë²”ìœ„">
             <select id="searchScopeSelect">
-              <option value="page">ÇöÀç ÆäÀÌÁö</option>
-              <option value="title">Á¦¸ñ</option>
-              <option value="author">ÀÛ°¡</option>
-              <option value="tags">ÅÂ±×</option>
-              <option value="description">ÀÛÇ°¼Ò°³</option>
-              <option value="memo">¸Þ¸ð</option>
+              <option value="page">í˜„ìž¬ íŽ˜ì´ì§€</option>
+              <option value="title">ì œëª©</option>
+              <option value="author">ìž‘ê°€</option>
+              <option value="tags">íƒœê·¸</option>
+              <option value="description">ìž‘í’ˆì†Œê°œ</option>
+              <option value="memo">ë©”ëª¨</option>
             </select>
           </label>
-          <input id="librarySearchInput" type="text" placeholder="º¸°üÇÔ¿¡¼­ °Ë»öÇÏ¼¼¿ä." />
-          <button type="submit" aria-label="°Ë»ö">
-            <img src="../image/search.svg" alt="°Ë»ö" />
+          <input id="librarySearchInput" type="text" placeholder="ë³´ê´€í•¨ì—ì„œ ê²€ìƒ‰í•˜ì„¸ìš”." />
+          <button type="submit" aria-label="ê²€ìƒ‰">
+            <img src="../image/search.svg" alt="ê²€ìƒ‰" />
           </button>
         </form>
 
         <div class="menu-wrap">
-          <button class="menu-button" type="button" aria-label="¸Þ´º ¿­±â">
+          <button class="menu-button" type="button" aria-label="ë©”ë‰´ ì—´ê¸°">
             <span></span>
             <span></span>
             <span></span>
           </button>
           <div class="dropdown-menu">
-            <a href="library.html?page=webtoon">À¥Å÷</a>
-            <a href="library.html?page=webnovel">À¥¼Ò¼³</a>
-            <a href="library.html?page=manga">¸¸È­</a>
-            <a href="library.html?page=anime">¾Ö´Ï</a>
-            <a href="library.html?page=recent">ÃÖ±Ù±â·Ï</a>
-            <a href="library.html?page=library">º¸°üÇÔ</a>
+            <a href="library.html?page=webtoon">ì›¹íˆ°</a>
+            <a href="library.html?page=webnovel">ì›¹ì†Œì„¤</a>
+            <a href="library.html?page=manga">ë§Œí™”</a>
+            <a href="library.html?page=anime">ì• ë‹ˆ</a>
+            <a href="library.html?page=recent">ìµœê·¼ê¸°ë¡</a>
+            <a href="library.html?page=library">ë³´ê´€í•¨</a>
           </div>
         </div>
       </header>
@@ -58,78 +58,78 @@
             <p class="eyebrow" id="libraryEyebrow">LIBRARY</p>
             <div class="library-title-row">
               <div class="library-title-wrap">
-                <h1 id="libraryPageTitle">º¸°üÇÔ</h1>
-                <span class="library-count" id="libraryWorkCount">| ÀüÃ¼ 0</span>
+                <h1 id="libraryPageTitle">ë³´ê´€í•¨</h1>
+                <span class="library-count" id="libraryWorkCount">| ì „ì²´ 0</span>
               </div>
-              <button class="button-primary add-work-button" type="button">ÀÛÇ° Ãß°¡ÇÏ±â</button>
+              <button class="button-primary add-work-button" type="button">ìž‘í’ˆ ì¶”ê°€í•˜ê¸°</button>
             </div>
-            <p id="libraryDescription">ÀúÀåÇÑ ÀÛÇ°µéÀ» °ü¸®ÇÏ´Â ÆäÀÌÁöÀÔ´Ï´Ù.</p>
+            <p id="libraryDescription">ì €ìž¥í•œ ìž‘í’ˆë“¤ì„ ê´€ë¦¬í•˜ëŠ” íŽ˜ì´ì§€ìž…ë‹ˆë‹¤.</p>
           </div>
         </section>
 
         <section class="library-filter">
-          <button class="filter-button active" type="button" data-filter="all">ÀüÃ¼</button>
-          <button class="filter-button" type="button" data-filter="completed">¿Ïµ¶</button>
-          <button class="filter-button" type="button" data-filter="paused">º¸·ù</button>
-          <button class="filter-button" type="button" data-filter="dropped">ÇÏÂ÷</button>
-          <button class="filter-button" type="button" data-filter="reading">ÀÐ´Â Áß</button>
+          <button class="filter-button active" type="button" data-filter="all">ì „ì²´</button>
+          <button class="filter-button" type="button" data-filter="completed">ì™„ë…</button>
+          <button class="filter-button" type="button" data-filter="paused">ë³´ë¥˜</button>
+          <button class="filter-button" type="button" data-filter="dropped">í•˜ì°¨</button>
+          <button class="filter-button" type="button" data-filter="reading">ì½ëŠ” ì¤‘</button>
         </section>
 
-        <section class="library-tools" aria-label="ÀÛÇ° °ü¸® µµ±¸">
+        <section class="library-tools" aria-label="ìž‘í’ˆ ê´€ë¦¬ ë„êµ¬">
           <div class="tool-group type-filter-group">
             <label>
-              Á¾·ù
+              ì¢…ë¥˜
               <select id="typeFilter">
-                <option value="all">ÀüÃ¼</option>
-                <option value="webtoon">À¥Å÷</option>
-                <option value="webnovel">À¥¼Ò¼³</option>
-                <option value="manga">¸¸È­</option>
-                <option value="anime">¾Ö´Ï</option>
+                <option value="all">ì „ì²´</option>
+                <option value="webtoon">ì›¹íˆ°</option>
+                <option value="webnovel">ì›¹ì†Œì„¤</option>
+                <option value="manga">ë§Œí™”</option>
+                <option value="anime">ì• ë‹ˆ</option>
               </select>
             </label>
           </div>
 
           <div class="tool-group">
             <label>
-              Àå¸£
+              ìž¥ë¥´
               <select id="genreFilter">
-                <option value="all">ÀüÃ¼ Àå¸£</option>
+                <option value="all">ì „ì²´ ìž¥ë¥´</option>
               </select>
             </label>
           </div>
 
           <div class="tool-group">
             <label>
-              ÆòÁ¡
+              í‰ì 
               <select id="ratingFilter">
-                <option value="all">ÀüÃ¼ ÆòÁ¡</option>
-                <option value="5">5Á¡</option>
-                <option value="4">4Á¡</option>
-                <option value="3">3Á¡</option>
-                <option value="2">2Á¡</option>
-                <option value="1">1Á¡</option>
+                <option value="all">ì „ì²´ í‰ì </option>
+                <option value="5">5ì </option>
+                <option value="4">4ì </option>
+                <option value="3">3ì </option>
+                <option value="2">2ì </option>
+                <option value="1">1ì </option>
               </select>
             </label>
           </div>
 
           <div class="tool-group">
             <label>
-              Á¤·Ä
+              ì •ë ¬
               <select id="sortSelect">
-                <option value="title">Á¦¸ñ¼ø</option>
-                <option value="ratingDesc">³ôÀº ÆòÁ¡¼ø</option>
-                <option value="ratingAsc">³·Àº ÆòÁ¡¼ø</option>
-                <option value="recent">ÃÖ±Ù ±â·Ï¼ø</option>
+                <option value="title">ì œëª©ìˆœ</option>
+                <option value="ratingDesc">ë†’ì€ í‰ì ìˆœ</option>
+                <option value="ratingAsc">ë‚®ì€ í‰ì ìˆœ</option>
+                <option value="recent">ìµœê·¼ ê¸°ë¡ìˆœ</option>
               </select>
             </label>
           </div>
 
           <div class="backup-tools">
-            <button class="tool-button export-works-button" type="button" aria-label="JSON ³»º¸³»±â">
+            <button class="tool-button export-works-button" type="button" aria-label="JSON ë‚´ë³´ë‚´ê¸°">
               <img src="../image/download.svg" alt="" aria-hidden="true" />
             </button>
 
-            <button class="tool-button import-works-button" type="button" aria-label="JSON °¡Á®¿À±â">
+            <button class="tool-button import-works-button" type="button" aria-label="JSON ê°€ì ¸ì˜¤ê¸°">
               <img src="../image/upload.svg" alt="" aria-hidden="true" />
             </button>
 

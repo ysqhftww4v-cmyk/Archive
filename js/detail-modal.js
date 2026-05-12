@@ -1,4 +1,4 @@
-function createDetailModal() {
+ï»¿function createDetailModal() {
   const modal = document.createElement("div");
   modal.className = "work-modal detail-modal";
   modal.setAttribute("role", "dialog");
@@ -8,26 +8,26 @@ function createDetailModal() {
     <div class="work-modal-box detail-modal-box">
       <div class="work-modal-head">
         <h2 id="detailModalTitle"></h2>
-        <button class="modal-close-button" type="button" aria-label="´İ±â">
+        <button class="modal-close-button" type="button" aria-label="ë‹«ê¸°">
           <img src="../image/close.svg" alt="" aria-hidden="true" />
         </button>
       </div>
       <div class="detail-body"></div>
       <div class="detail-nav">
-        <button class="detail-prev-button" type="button">ÀÌÀü ÀÛÇ°</button>
-        <button class="detail-next-button" type="button">´ÙÀ½ ÀÛÇ°</button>
+        <button class="detail-prev-button" type="button">ì´ì „ ì‘í’ˆ</button>
+        <button class="detail-next-button" type="button">ë‹¤ìŒ ì‘í’ˆ</button>
       </div>
       <div class="detail-actions">
-        <button class="detail-delete-button" type="button">»èÁ¦ÇÏ±â</button>
-        <button class="button-primary detail-edit-button" type="button">¼öÁ¤ÇÏ±â</button>
+        <button class="detail-delete-button" type="button">ì‚­ì œí•˜ê¸°</button>
+        <button class="button-primary detail-edit-button" type="button">ìˆ˜ì •í•˜ê¸°</button>
       </div>
       <div class="delete-confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
         <div class="delete-confirm-panel">
-          <h3 id="deleteConfirmTitle">ÀÛÇ° »èÁ¦</h3>
-          <p>ÀÌ ÀÛÇ°À» »èÁ¦ÇÒ±î¿ä?</p>
+          <h3 id="deleteConfirmTitle">ì‘í’ˆ ì‚­ì œ</h3>
+          <p>ì´ ì‘í’ˆì„ ì‚­ì œí• ê¹Œìš”?</p>
           <div>
-            <button class="delete-cancel-button" type="button">Ãë¼Ò</button>
-            <button class="delete-confirm-button" type="button">»èÁ¦ÇÏ±â</button>
+            <button class="delete-cancel-button" type="button">ì·¨ì†Œ</button>
+            <button class="delete-confirm-button" type="button">ì‚­ì œí•˜ê¸°</button>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@ function renderDetailModal(work) {
   const confirmBox = state.detailModal.querySelector(".delete-confirm-box");
   const prevButton = state.detailModal.querySelector(".detail-prev-button");
   const nextButton = state.detailModal.querySelector(".detail-next-button");
-  title.innerHTML = `<span>${escapeHTML(work.title)}</span><small>${escapeHTML(work.author || "ÀÛ°¡ ¹ÌÀÔ·Â")}</small>`;
+  title.innerHTML = `<span>${escapeHTML(work.title)}</span><small>${escapeHTML(work.author || "ì‘ê°€ ë¯¸ì…ë ¥")}</small>`;
   if (confirmBox) confirmBox.classList.remove("active");
   body.innerHTML = `
     <div class="detail-meta">
@@ -60,14 +60,14 @@ function renderDetailModal(work) {
       <span>${escapeHTML(work.genre)}</span>
       <span>${escapeHTML(statusText[work.status])}</span>
       ${parseTags(work.tags).map((tag) => `<span>#${escapeHTML(tag)}</span>`).join("")}
-      ${work.rating ? `<span>¡Ú ${escapeHTML(work.rating)}</span>` : ""}
+      ${work.rating ? `<span>â˜… ${escapeHTML(work.rating)}</span>` : ""}
     </div>
     <dl class="detail-list">
-      <div><dt>ÃÖ±Ù ¼öÁ¤</dt><dd>${escapeHTML(formatDate(getWorkActivityDate(work)))}</dd></div>
-      <div><dt>ÇöÀç È¸Â÷</dt><dd>${escapeHTML(formatProgress(work.progress) || "¹ÌÀÔ·Â")}</dd></div>
-      <div class="full"><dt>ÅÂ±×</dt><dd>${escapeHTML(parseTags(work.tags).map((tag) => `#${tag}`).join(" ") || "ÅÂ±× ¾øÀ½")}</dd></div>
-      <div class="full"><dt>ÀÛÇ°¼Ò°³</dt><dd>${escapeHTML(work.description || "ÀÛÇ°¼Ò°³ ¾øÀ½")}</dd></div>
-      <div class="full"><dt>°³ÀÎ ¸Ş¸ğ</dt><dd>${escapeHTML(work.memo || "¸Ş¸ğ ¾øÀ½")}</dd></div>
+      <div><dt>ìµœê·¼ ìˆ˜ì •</dt><dd>${escapeHTML(formatDate(getWorkActivityDate(work)))}</dd></div>
+      <div><dt>í˜„ì¬ íšŒì°¨</dt><dd>${escapeHTML(formatProgress(work.progress) || "ë¯¸ì…ë ¥")}</dd></div>
+      <div class="full"><dt>íƒœê·¸</dt><dd>${escapeHTML(parseTags(work.tags).map((tag) => `#${tag}`).join(" ") || "íƒœê·¸ ì—†ìŒ")}</dd></div>
+      <div class="full"><dt>ì‘í’ˆì†Œê°œ</dt><dd>${escapeHTML(work.description || "ì‘í’ˆì†Œê°œ ì—†ìŒ")}</dd></div>
+      <div class="full"><dt>ê°œì¸ ë©”ëª¨</dt><dd>${escapeHTML(work.memo || "ë©”ëª¨ ì—†ìŒ")}</dd></div>
     </dl>
   `;
   const visibleWorks = getVisibleWorks();
