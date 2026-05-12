@@ -27,7 +27,7 @@
 .tag { padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 800; color: #e5e7eb; }
 .rating { display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 13px; font-weight: 800; color: #facc15; }
 .novel-card-title-row { display: flex; align-items: baseline; justify-content: flex-start; gap: 8px; width: fit-content; max-width: calc(100% - 72px); min-width: 0; overflow: hidden; }
-.novel-card h3 { flex: 0 1 auto; min-width: 0; margin: 0; font-size: 28px; letter-spacing: -0.03em; line-height: 1.25; overflow-wrap: anywhere; }
+.novel-card h3 { flex: 0 1 auto; min-width: 0; margin: 0; color: #ffffff; -webkit-text-fill-color: #ffffff; font-size: 28px; letter-spacing: -0.03em; line-height: 1.25; overflow-wrap: anywhere; }
 .novel-card h3.preview-work-title--sm { font-size: 22px; line-height: 1.12; }
 .novel-card h3.preview-work-title--xs { font-size: 18px; line-height: 1.12; }
 .novel-card h3.preview-work-title--xxs { font-size: 15px; line-height: 1.18; }
