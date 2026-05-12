@@ -47,15 +47,15 @@
   .library-title-row { align-items: center; flex-direction: row; gap: 12px; }
   .library-title-row h1, .library-head h1 { font-size: 38px; }
   .library-title-row .button-primary { min-height: 48px; padding: 0 16px; border-radius: 16px; font-size: 14px; flex-shrink: 0; }
-  .library-filter { flex-wrap: nowrap; gap: 6px; align-items: center; }
-  .filter-button { min-height: 46px; padding: 0 10px; font-size: 14px; flex: 0 0 auto; }
+  .library-filter { flex-wrap: nowrap; gap: 5px; align-items: center; }
+  .filter-button { min-height: 40px; padding: 0 12px; font-size: 13px; flex: 0 0 auto; }
   .library-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; }
   .backup-tools { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
   .library-filter .backup-tools { grid-column: auto; display: flex; gap: 2px; margin-left: auto; flex: 0 0 auto; max-width: 100%; }
-  .library-filter .tool-button { width: 36px; height: 46px; border-radius: 12px; flex: 0 0 36px; }
-  .library-filter .tool-button img { width: 24px; height: 24px; }
+  .library-filter .tool-button { width: 34px; height: 40px; border-radius: 12px; flex: 0 0 34px; }
+  .library-filter .tool-button img { width: 23px; height: 23px; }
   .tool-group, .tool-group select, .tool-button { width: 100%; }
-  .library-filter .tool-button { width: 36px; }
+  .library-filter .tool-button { width: 34px; }
   .library-item { padding: 20px; border-radius: 24px; }
   .library-item { color: var(--color-text); appearance: none; -webkit-appearance: none; }
   .library-item h2 { color: #111827 !important; -webkit-text-fill-color: #111827 !important; }
@@ -81,7 +81,7 @@
 }
 
 @media (max-width: 380px) {
-  .library-filter { gap: 5px; }
-  .filter-button { padding: 0 8px; font-size: 13px; }
-  .library-filter .tool-button { width: 34px; flex-basis: 34px; }
+  .library-filter { gap: 4px; }
+  .filter-button { padding: 0 10px; }
+  .library-filter .tool-button { width: 32px; flex-basis: 32px; }
 }
