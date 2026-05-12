@@ -40,3 +40,11 @@
 .library-item .library-item-user-tag[hidden] { display: none; }
 .library-item-rating { font-size: 13px; }
 .empty-message { grid-column: 1 / -1; padding: 40px; border-radius: 28px; background: var(--color-white); color: var(--color-muted); text-align: center; box-shadow: 0 18px 50px rgba(15,23,42,.08); }
+.library-item h2 {
+  color: #111827 !important;
+  -webkit-text-fill-color: #111827 !important;
+}
+.library-item h2 .library-item-author {
+  color: #94a3b8 !important;
+  -webkit-text-fill-color: #94a3b8 !important;
+}
