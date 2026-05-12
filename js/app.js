@@ -28,8 +28,7 @@ function initStorageSync() {
   window.addEventListener("storage", (event) => {
     if (event.key !== STORAGE_KEY) return;
     worksCache = null;
-    if (typeof renderWorks === "function") renderWorks(state.currentFilter);
-    if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+    refreshVisibleViews();
   });
 }
 

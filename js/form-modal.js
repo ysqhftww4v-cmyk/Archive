@@ -145,21 +145,7 @@ function openWorkFormModal(mode = "create", work = null) {
   resetWorkFormValidation(form);
 
   if (work) {
-    form.elements.type.value = work.type;
-    if (genres.includes(work.genre)) {
-      form.elements.genre.value = work.genre;
-    } else {
-      form.elements.genre.value = "custom";
-      form.elements.customGenre.value = work.genre || "";
-    }
-    form.elements.title.value = work.title;
-    form.elements.author.value = work.author || "";
-    form.elements.status.value = work.status;
-    form.elements.rating.value = work.rating || "";
-    form.elements.progress.value = work.progress || "";
-    form.elements.tags.value = work.tags || "";
-    form.elements.description.value = work.description;
-    form.elements.memo.value = work.memo || "";
+    fillWorkForm(form, work);
   }
 
   state.workFormModal.classList.add("active");
@@ -264,6 +250,54 @@ function validateWorkForm(form) {
   return isTitleValid && isProgressValid;
 }
 
+function fillWorkForm(form, work) {
+  const values = {
+    type: work.type,
+    title: work.title,
+    author: work.author || "",
+    status: work.status,
+    rating: work.rating || "",
+    progress: work.progress || "",
+    tags: work.tags || "",
+    description: work.description || "",
+    memo: work.memo || ""
+  };
+
+  Object.entries(values).forEach(([name, value]) => {
+    form.elements[name].value = value;
+  });
+
+  if (genres.includes(work.genre)) {
+    form.elements.genre.value = work.genre;
+    return;
+  }
+
+  form.elements.genre.value = "custom";
+  form.elements.customGenre.value = work.genre || "";
+}
+
+function getWorkFormValues(workForm) {
+  const formData = new FormData(workForm);
+  const selectedGenre = workForm.elements.customGenre.hidden
+    ? String(formData.get("genre") || "")
+    : "custom";
+
+  return {
+    title: String(formData.get("title") || "").trim(),
+    type: String(formData.get("type") || ""),
+    status: String(formData.get("status") || ""),
+    genre: selectedGenre === "custom"
+      ? String(formData.get("customGenre") || "").trim()
+      : selectedGenre,
+    author: String(formData.get("author") || "").trim(),
+    rating: String(formData.get("rating") || ""),
+    progress: String(formData.get("progress") || "").trim(),
+    tags: normalizeTags(formData.get("tags") || ""),
+    description: String(formData.get("description") || "").trim(),
+    memo: String(formData.get("memo") || "").trim()
+  };
+}
+
 function bindWorkFormModalEvents() {
   const closeModalButton = state.workFormModal.querySelector(".modal-close-button");
   const modalBox = state.workFormModal.querySelector(".work-modal-box");
@@ -325,27 +359,9 @@ function bindWorkFormModalEvents() {
       return;
     }
 
-    const formData = new FormData(workForm);
     const works = getWorks();
     const now = new Date().toISOString();
-    const selectedGenre = workForm.elements.customGenre.hidden
-      ? String(formData.get("genre") || "")
-      : "custom";
-
-    const formValues = {
-      title: String(formData.get("title") || "").trim(),
-      type: String(formData.get("type") || ""),
-      status: String(formData.get("status") || ""),
-      genre: selectedGenre === "custom"
-        ? String(formData.get("customGenre") || "").trim()
-        : selectedGenre,
-      author: String(formData.get("author") || "").trim(),
-      rating: String(formData.get("rating") || ""),
-      progress: String(formData.get("progress") || "").trim(),
-      tags: normalizeTags(formData.get("tags") || ""),
-      description: String(formData.get("description") || "").trim(),
-      memo: String(formData.get("memo") || "").trim()
-    };
+    const formValues = getWorkFormValues(workForm);
 
     if (state.workFormMode === "edit") {
       const selectedWork = works.find((work) => work.id === state.editingWorkId);
@@ -357,10 +373,8 @@ function bindWorkFormModalEvents() {
       Object.assign(selectedWork, formValues);
       selectedWork.updatedAt = now;
       saveWorks(works);
-      syncGenreFilterOptions();
       closeWorkFormModal({ restoreDetail: false });
-      renderWorks(state.currentFilter);
-      if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+      refreshVisibleViews({ syncGenres: true });
       openDetailModal(selectedWork.id);
       return;
     }
@@ -374,18 +388,11 @@ function bindWorkFormModalEvents() {
 
     works.push(newWork);
     saveWorks(works);
-    syncGenreFilterOptions();
     closeWorkFormModal({ restoreDetail: false });
-
-    document.querySelectorAll(".filter-button").forEach((button) => {
-      button.classList.toggle("active", button.dataset.filter === "all");
-    });
-
+    setActiveFilterButtons("all");
     state.currentFilter = "all";
     state.selectedWorkId = newWork.id;
-
-    renderWorks(state.currentFilter);
-    if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+    refreshVisibleViews({ syncGenres: true });
   });
 }
 

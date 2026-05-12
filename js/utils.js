@@ -31,6 +31,19 @@ function getValidSearchScopeQueryParam() {
   return validSearchScopes.includes(value) ? value : defaultScope;
 }
 
+function isTypeFilterPage(page = state.currentPage) {
+  return page === "library" || page === "recent";
+}
+
+function refreshVisibleViews(options = {}) {
+  if (options.syncGenres && typeof syncGenreFilterOptions === "function") {
+    syncGenreFilterOptions();
+  }
+
+  if (typeof renderWorks === "function") renderWorks(state.currentFilter);
+  if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+}
+
 function getWorks() {
   if (worksCache) return worksCache;
   const savedWorks = localStorage.getItem(STORAGE_KEY);
@@ -75,6 +88,19 @@ function compareTextNaturally(a, b) {
 
 function sortTextNaturally(values) {
   return values.slice().sort(compareTextNaturally);
+}
+
+function createSelectOptions(items, selectedValue = "", options = {}) {
+  const getValue = options.getValue || ((item) => item);
+  const getLabel = options.getLabel || ((item) => item);
+
+  return items
+    .map((item) => {
+      const value = String(getValue(item));
+      const selected = value === String(selectedValue) ? " selected" : "";
+      return `<option value="${escapeHTML(value)}"${selected}>${escapeHTML(getLabel(item))}</option>`;
+    })
+    .join("");
 }
 
 function getAvailableGenres() {
@@ -274,7 +300,7 @@ function getStatusCounts(works) {
 
 function getVisibleWorks() {
   let works = getPageWorks();
-  if ((state.currentPage === "library" || state.currentPage === "recent") && state.currentTypeFilter !== "all") works = works.filter((work) => work.type === state.currentTypeFilter);
+  if (isTypeFilterPage() && state.currentTypeFilter !== "all") works = works.filter((work) => work.type === state.currentTypeFilter);
   if (state.currentFilter !== "all") works = works.filter((work) => work.status === state.currentFilter);
   if (state.currentGenreFilter !== "all") works = works.filter((work) => work.genre === state.currentGenreFilter);
   if (state.currentRatingFilter !== "all") works = works.filter((work) => String(work.rating) === state.currentRatingFilter);

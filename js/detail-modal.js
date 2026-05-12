@@ -52,6 +52,7 @@ function renderDetailModal(work) {
   const confirmBox = state.detailModal.querySelector(".delete-confirm-box");
   const prevButton = state.detailModal.querySelector(".detail-prev-button");
   const nextButton = state.detailModal.querySelector(".detail-next-button");
+  const tags = parseTags(work.tags);
   title.innerHTML = `<span>${escapeHTML(work.title)}</span><small>${escapeHTML(work.author || "작가 미입력")}</small>`;
   if (confirmBox) confirmBox.classList.remove("active");
   body.innerHTML = `
@@ -59,13 +60,13 @@ function renderDetailModal(work) {
       <span>${escapeHTML(typeText[work.type])}</span>
       <span>${escapeHTML(work.genre)}</span>
       <span>${escapeHTML(statusText[work.status])}</span>
-      ${parseTags(work.tags).map((tag) => `<span>#${escapeHTML(tag)}</span>`).join("")}
+      ${tags.map((tag) => `<span>#${escapeHTML(tag)}</span>`).join("")}
       ${work.rating ? `<span>★ ${escapeHTML(work.rating)}</span>` : ""}
     </div>
     <dl class="detail-list">
       <div><dt>최근 수정</dt><dd>${escapeHTML(formatDate(getWorkActivityDate(work)))}</dd></div>
       <div><dt>현재 회차</dt><dd>${escapeHTML(formatProgress(work.progress) || "미입력")}</dd></div>
-      <div class="full"><dt>태그</dt><dd>${escapeHTML(parseTags(work.tags).map((tag) => `#${tag}`).join(" ") || "태그 없음")}</dd></div>
+      <div class="full"><dt>태그</dt><dd>${escapeHTML(tags.map((tag) => `#${tag}`).join(" ") || "태그 없음")}</dd></div>
       <div class="full"><dt>작품소개</dt><dd>${escapeHTML(work.description || "작품소개 없음")}</dd></div>
       <div class="full"><dt>개인 메모</dt><dd>${escapeHTML(work.memo || "메모 없음")}</dd></div>
     </dl>
@@ -101,18 +102,15 @@ function openDetailModal(workId) {
   state.detailModal.classList.add("active");
   focusModal(state.detailModal);
   requestAnimationFrame(updateDetailScrollbar);
-  renderWorks(state.currentFilter);
-  if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+  refreshVisibleViews();
 }
 
 function deleteWork(workId) {
   const nextWorks = getWorks().filter((work) => Number(work.id) !== Number(workId));
   saveWorks(nextWorks);
-  syncGenreFilterOptions();
   state.selectedWorkId = null;
   closeDetailModal();
-  renderWorks(state.currentFilter);
-  if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+  refreshVisibleViews({ syncGenres: true });
 }
 
 function bindDetailModalEvents() {

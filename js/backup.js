@@ -31,9 +31,7 @@
         if (!Array.isArray(importedWorks)) throw new Error("Invalid works data");
         const mergedWorks = mergeWorks(getWorks(), importedWorks);
         saveWorks(mergedWorks);
-        syncGenreFilterOptions();
-        renderWorks(state.currentFilter);
-        if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
+        refreshVisibleViews({ syncGenres: true });
       } catch {
         alert("가져올 수 없는 JSON 파일입니다.");
       } finally {

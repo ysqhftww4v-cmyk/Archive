@@ -116,7 +116,7 @@ function updateLibraryURL() {
   params.set("page", state.currentPage);
 
   if (state.currentFilter !== "all") params.set("filter", state.currentFilter);
-  if ((state.currentPage === "library" || state.currentPage === "recent") && state.currentTypeFilter !== "all") {
+  if (isTypeFilterPage() && state.currentTypeFilter !== "all") {
     params.set("type", state.currentTypeFilter);
   }
   if (state.currentGenreFilter !== "all") params.set("genre", state.currentGenreFilter);
@@ -167,11 +167,7 @@ function initLibraryFilters() {
     button.classList.toggle("active", selectedFilter === initialFilter);
 
     button.addEventListener("click", () => {
-      filterButtons.forEach((item) => {
-        item.classList.remove("active");
-      });
-
-      button.classList.add("active");
+      setActiveFilterButtons(selectedFilter);
       state.currentFilter = selectedFilter;
       renderWorks(state.currentFilter);
       updateLibraryURL();
@@ -180,6 +176,12 @@ function initLibraryFilters() {
 
   renderWorks(initialFilter);
   window.addEventListener("resize", () => scheduleCustomTagFit(libraryGrid));
+}
+
+function setActiveFilterButtons(filter) {
+  document.querySelectorAll(".filter-button").forEach((button) => {
+    button.classList.toggle("active", button.dataset.filter === filter);
+  });
 }
 
 function syncGenreFilterOptions() {
@@ -196,7 +198,7 @@ function syncGenreFilterOptions() {
 
   genreFilter.innerHTML = `
     <option value="all">전체 장르</option>
-    ${availableGenres.map((genre) => `<option value="${escapeHTML(genre)}">${escapeHTML(genre)}</option>`).join("")}
+    ${createSelectOptions(availableGenres)}
   `;
   genreFilter.value = selectedGenre;
   state.currentGenreFilter = selectedGenre;
@@ -217,7 +219,7 @@ function initLibraryTools() {
   }
 
   if (typeFilterGroup) {
-    typeFilterGroup.hidden = !(state.currentPage === "library" || state.currentPage === "recent");
+    typeFilterGroup.hidden = !isTypeFilterPage();
   }
 
   syncGenreFilterOptions();
@@ -234,19 +236,14 @@ function initLibraryTools() {
 }
 
 function createGenreOptions(selectedGenre = "") {
-  return sortTextNaturally(genres)
-    .map((genre) => {
-      const selected = genre === selectedGenre ? " selected" : "";
-      return `<option value="${escapeHTML(genre)}"${selected}>${escapeHTML(genre)}</option>`;
-    })
-    .join("") + `<option value="custom"${selectedGenre === "custom" ? " selected" : ""}>직접입력</option>`;
+  return createSelectOptions(sortTextNaturally(genres), selectedGenre)
+    + `<option value="custom"${selectedGenre === "custom" ? " selected" : ""}>직접입력</option>`;
 }
 
 function createRatingOptions(selectedRating = "") {
-  return Array.from({ length: 5 }, (_, index) => String(5 - index))
-    .map((rating) => {
-      const selected = rating === String(selectedRating) ? " selected" : "";
-      return `<option value="${rating}"${selected}>${rating}점</option>`;
-    })
-    .join("");
+  return createSelectOptions(
+    Array.from({ length: 5 }, (_, index) => String(5 - index)),
+    selectedRating,
+    { getLabel: (rating) => `${rating}점` }
+  );
 }
