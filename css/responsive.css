@@ -47,11 +47,11 @@
   .library-title-row { align-items: center; flex-direction: row; gap: 12px; }
   .library-title-row h1, .library-head h1 { font-size: 38px; }
   .library-title-row .button-primary { min-height: 48px; padding: 0 16px; border-radius: 16px; font-size: 14px; flex-shrink: 0; }
-  .library-filter { flex-wrap: nowrap; gap: 7px; align-items: center; }
+  .library-filter { flex-wrap: wrap; gap: 7px; align-items: center; }
   .filter-button { min-height: 40px; padding: 0 13px; font-size: 13px; flex: 0 0 auto; }
   .library-tools { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: end; gap: 12px; }
   .backup-tools { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
-  .library-filter .backup-tools { grid-column: auto; display: flex; gap: 2px; margin-left: auto; flex: 0 0 auto; }
+  .library-filter .backup-tools { grid-column: auto; display: flex; gap: 2px; margin-left: auto; flex: 0 0 auto; max-width: 100%; }
   .library-filter .tool-button { width: 34px; height: 40px; border-radius: 12px; }
   .library-filter .tool-button img { width: 20px; height: 20px; }
   .tool-group, .tool-group select, .tool-button { width: 100%; }
