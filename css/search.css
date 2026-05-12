@@ -1,8 +1,8 @@
-.search-box { position: relative; width: 100%; max-width: 520px; min-height: 46px; justify-self: center; display: flex; align-items: center; border: 1px solid rgba(17, 24, 39, .08); border-radius: 18px; background: var(--color-white); overflow: visible; }
+.search-box { position: relative; width: 100%; max-width: 520px; min-width: 0; min-height: 46px; justify-self: center; display: flex; align-items: center; border: 1px solid rgba(17, 24, 39, .08); border-radius: 18px; background: var(--color-white); overflow: visible; }
 .search-scope-label { position: relative; flex: 0 0 auto; height: 44px; display: flex; align-items: center; margin-left: 8px; }
 .search-scope-label::after { content: ""; width: 1px; height: 18px; margin-left: 8px; background: #e2e8f0; }
 .search-scope-label select { width: var(--search-scope-width, 64px); height: 36px; padding: 0 24px 0 10px; border: none; border-radius: 12px; background: transparent url("../image/select-chevron-muted.svg") no-repeat right 5px center / 16px 16px; appearance: none; color: #475569; font-size: 14px; font-weight: 800; outline: none; }
-.search-box input { flex: 1; height: 44px; padding-left: 14px; border: none; outline: none; background: transparent; font-size: 15px; color: var(--color-text); }
+.search-box input { flex: 1 1 auto; min-width: 0; height: 44px; padding-left: 14px; border: none; outline: none; background: transparent; font-size: 15px; color: var(--color-text); }
 .search-box input::placeholder { color: var(--color-subtle); }
 .search-box > button { width: 48px; height: 44px; border: none; background: transparent; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .search-box > button img { width: 24px; height: 24px; object-fit: contain; }

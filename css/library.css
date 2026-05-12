@@ -1,19 +1,20 @@
 .library-page { padding-bottom: 80px; }
 .library-head { margin-bottom: 28px; }
 .eyebrow { margin-bottom: 8px; font-size: 13px; font-weight: 900; letter-spacing: .12em; color: #64748b; }
-.library-title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; margin-bottom: 10px; }
+.library-title-row { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-width: 0; margin-bottom: 10px; }
 .library-title-wrap { display: flex; align-items: baseline; flex-wrap: wrap; gap: 12px; min-width: 0; }
 .library-title-row h1, .library-head h1 { font-size: 52px; line-height: 1.1; letter-spacing: -0.06em; }
 .library-count { color: #64748b; font-size: 18px; font-weight: 900; letter-spacing: 0; white-space: nowrap; }
 .library-title-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; }
 #libraryDescription { display: none; }
 .library-head p { color: var(--color-muted); line-height: 1.7; }
-.library-filter { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 24px; }
+.library-filter { display: flex; flex-wrap: wrap; gap: 10px; min-width: 0; margin-bottom: 24px; }
 .filter-button { min-height: 42px; padding: 0 18px; border: none; border-radius: 999px; background: var(--color-white); color: #334155; font-size: 14px; font-weight: 800; }
 .filter-button.active, .filter-button:hover { background: var(--color-text); color: var(--color-white); }
-.library-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; margin-bottom: 24px; }
+.library-tools { display: flex; flex-wrap: wrap; align-items: end; gap: 12px; min-width: 0; margin-bottom: 24px; }
+.tool-group { min-width: 0; }
 .tool-group label { display: grid; gap: 8px; font-size: 12px; font-weight: 800; color: #64748b; }
-.tool-group select { min-width: 138px; height: 44px; padding: 0 42px 0 14px; border: 1px solid #dbe3ef; border-radius: 14px; background: var(--color-white) url("../image/select-chevron-dark.svg") no-repeat right 12px center / 18px 18px; appearance: none; color: var(--color-text); font-weight: 800; }
+.tool-group select { min-width: 0; height: 44px; padding: 0 42px 0 14px; border: 1px solid #dbe3ef; border-radius: 14px; background: var(--color-white) url("../image/select-chevron-dark.svg") no-repeat right 12px center / 18px 18px; appearance: none; color: var(--color-text); font-weight: 800; }
 .backup-tools { display: flex; gap: 8px; margin-left: auto; }
 .tool-button { width: 44px; height: 44px; border: none; border-radius: 14px; background: transparent; display: flex; align-items: center; justify-content: center; }
 .tool-button img { width: 22px; height: 22px; object-fit: contain; }
