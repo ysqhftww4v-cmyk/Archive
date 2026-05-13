@@ -79,6 +79,7 @@ function initMainPreview() {
   const nextWorkButton = document.querySelector(".next-work-button");
   const previewWorkCard = document.querySelector(".novel-card");
   const statItems = document.querySelectorAll(".stat-item");
+  initMainBanner();
   renderMainPreview(state.currentType);
 
   if (previewTypeSelect) {
@@ -114,4 +115,116 @@ function initMainPreview() {
       if (status) location.href = `library.html?page=${state.currentType}&filter=${status}`;
     });
   });
+}
+
+const mainBannerState = {
+  currentIndex: 0,
+  timerId: null,
+  interval: 5000
+};
+
+function getMainBannerSlides() {
+  return Array.from(document.querySelectorAll(".main-banner-slide"));
+}
+
+function renderMainBanner(index) {
+  const slides = getMainBannerSlides();
+  const dots = Array.from(document.querySelectorAll(".main-banner-dot"));
+
+  if (slides.length === 0) {
+    return;
+  }
+
+  mainBannerState.currentIndex = (index + slides.length) % slides.length;
+
+  slides.forEach((slide, slideIndex) => {
+    const isActive = slideIndex === mainBannerState.currentIndex;
+    const previousIndex = (mainBannerState.currentIndex - 1 + slides.length) % slides.length;
+    const nextIndex = (mainBannerState.currentIndex + 1) % slides.length;
+
+    slide.classList.remove("prev", "active", "next");
+    slide.classList.toggle("active", isActive);
+    slide.classList.toggle("prev", slides.length > 1 && slideIndex === previousIndex);
+    slide.classList.toggle("next", slides.length > 1 && slideIndex === nextIndex);
+    slide.setAttribute("aria-hidden", String(!isActive));
+    slide.querySelectorAll("a, button").forEach((element) => {
+      element.tabIndex = isActive ? 0 : -1;
+    });
+  });
+
+  dots.forEach((dot, dotIndex) => {
+    const isActive = dotIndex === mainBannerState.currentIndex;
+    dot.classList.toggle("active", isActive);
+    dot.setAttribute("aria-current", isActive ? "true" : "false");
+  });
+}
+
+function stopMainBannerAutoPlay() {
+  if (!mainBannerState.timerId) {
+    return;
+  }
+
+  clearInterval(mainBannerState.timerId);
+  mainBannerState.timerId = null;
+}
+
+function startMainBannerAutoPlay() {
+  const slides = getMainBannerSlides();
+
+  stopMainBannerAutoPlay();
+  if (slides.length <= 1) {
+    return;
+  }
+
+  mainBannerState.timerId = setInterval(() => {
+    renderMainBanner(mainBannerState.currentIndex + 1);
+  }, mainBannerState.interval);
+}
+
+function moveMainBanner(direction) {
+  const nextIndex = direction === "prev"
+    ? mainBannerState.currentIndex - 1
+    : mainBannerState.currentIndex + 1;
+
+  renderMainBanner(nextIndex);
+  startMainBannerAutoPlay();
+}
+
+function initMainBanner() {
+  const banner = document.querySelector(".main-banner");
+  const slides = getMainBannerSlides();
+  const dotsContainer = document.querySelector(".main-banner-dots");
+  const prevButton = document.querySelector(".prev-banner-button");
+  const nextButton = document.querySelector(".next-banner-button");
+
+  if (!banner || slides.length === 0 || !dotsContainer) {
+    return;
+  }
+
+  dotsContainer.innerHTML = slides.map((_, index) => `
+    <button class="main-banner-dot" type="button" aria-label="${index + 1}번째 배너 보기"></button>
+  `).join("");
+
+  dotsContainer.querySelectorAll(".main-banner-dot").forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      renderMainBanner(index);
+      startMainBannerAutoPlay();
+    });
+  });
+
+  if (prevButton) {
+    prevButton.addEventListener("click", () => moveMainBanner("prev"));
+  }
+
+  if (nextButton) {
+    nextButton.addEventListener("click", () => moveMainBanner("next"));
+  }
+
+  banner.addEventListener("mouseenter", stopMainBannerAutoPlay);
+  banner.addEventListener("mouseleave", startMainBannerAutoPlay);
+  banner.addEventListener("focusin", stopMainBannerAutoPlay);
+  banner.addEventListener("focusout", startMainBannerAutoPlay);
+
+  renderMainBanner(0);
+  startMainBannerAutoPlay();
 }
