@@ -1,10 +1,9 @@
 body[data-page="main"] .header { margin-bottom: 28px; }
 
-.hero { display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: start; gap: 48px; min-height: auto; }
-.hero-content { display: none; }
+.hero { display: grid; grid-template-columns: 1fr; align-items: start; gap: 48px; min-height: auto; }
 .main-banner { grid-column: 1 / -1; position: relative; width: 100%; min-width: 0; margin-bottom: -8px; color: var(--color-white); }
 .main-banner-track { position: relative; width: 100%; min-height: 248px; border-radius: 30px; overflow: hidden; box-shadow: 0 24px 70px rgba(15, 23, 42, .12); }
-.main-banner-slide { position: absolute; inset: 0; display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; min-height: 248px; padding: 38px 42px; opacity: 0; pointer-events: none; transition: opacity .7s ease; }
+.main-banner-slide { position: absolute; inset: 0; display: flex; align-items: flex-end; min-height: 248px; padding: 38px 42px; opacity: 0; pointer-events: none; transition: opacity .7s ease; }
 .main-banner-slide.active { opacity: 1; pointer-events: auto; }
 .main-banner-slide:nth-child(1) { background: linear-gradient(135deg, rgba(124, 58, 237, .88), rgba(17, 24, 39, .96)); }
 .main-banner-slide:nth-child(2) { background: linear-gradient(135deg, rgba(14, 116, 144, .9), rgba(17, 24, 39, .96)); }
@@ -18,17 +17,10 @@ body[data-page="main"] .header { margin-bottom: 28px; }
 .main-banner-dots { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 0 4px; }
 .main-banner-dot { width: 24px; height: 5px; border: none; border-radius: 999px; background: rgba(255, 255, 255, .36); transition: width .2s ease, background .2s ease; }
 .main-banner-dot.active { width: 38px; background: #ffffff; }
-.hero-title { max-width: 660px; margin-bottom: 24px; font-size: 64px; line-height: 1.05; letter-spacing: -0.06em; }
-.hero-title span { color: var(--color-primary); }
-.hero-description { margin-bottom: 32px; font-size: 18px; line-height: 1.8; color: var(--color-muted); }
-.hero-actions { display: flex; gap: 12px; }
-
 .preview-card { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) 360px; align-items: stretch; gap: 22px; width: 100%; min-width: 0; height: 248px; padding: 24px; border: 1px solid rgba(226, 232, 240, .9); border-radius: 34px; background: var(--color-white); box-shadow: 0 30px 90px rgba(15, 23, 42, .1); }
 .preview-top { grid-column: 2; grid-row: 1; display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 18px; }
-.preview-title-wrap { display: flex; align-items: center; gap: 16px; }
 .preview-type-label { position: relative; display: flex; align-items: center; min-height: 56px; }
 .preview-type-label select { width: var(--preview-type-width, 92px); height: 48px; padding: 0 26px 0 10px; border: none; border-radius: 16px; background: var(--color-white) url("../image/select-chevron-muted.svg") no-repeat right 5px center / 18px 18px; appearance: none; color: var(--color-text); font-size: 24px; font-weight: 900; outline: none; }
-.preview-title { font-size: 32px; letter-spacing: -0.05em; }
 .preview-controls { display: flex; align-items: center; gap: 8px; }
 .move-button { width: 56px; height: 56px; border-radius: 20px; background: var(--color-card); }
 .move-button:hover { background: var(--color-hover); }
@@ -42,7 +34,7 @@ body[data-page="main"] .header { margin-bottom: 28px; }
 
 .novel-card { grid-column: 1; grid-row: 1 / span 2; position: relative; display: flex; flex-direction: column; min-height: 0; gap: 14px; padding: 30px; border: 1px solid rgba(148, 163, 184, .18); border-radius: 28px; background: linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,0)), #101827; color: var(--color-white); cursor: pointer; }
 .novel-card-top { position: absolute; top: 24px; right: 24px; display: flex; gap: 8px; }
-.novel-card-top .tag:empty, .rating:empty { display: none; }
+.rating:empty { display: none; }
 .tag { padding: 7px 12px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 12px; font-weight: 800; color: #e5e7eb; }
 .rating { display: inline-flex; align-items: center; min-height: 30px; padding: 0 10px; border-radius: 999px; background: rgba(255,255,255,.1); font-size: 13px; font-weight: 800; color: #facc15; }
 .novel-card-title-row { display: flex; align-items: baseline; justify-content: flex-start; gap: 8px; width: fit-content; max-width: calc(100% - 72px); min-width: 0; overflow: hidden; }

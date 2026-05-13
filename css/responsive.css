@@ -3,7 +3,7 @@
   .header { grid-template-columns: auto auto; gap: 20px; margin-bottom: 64px; }
   .search-box { grid-column: 1 / -1; grid-row: 2; max-width: none; }
   .menu-wrap { justify-self: end; }
-  .hero { grid-template-columns: 1fr; gap: 42px; min-height: auto; }
+  .hero { gap: 42px; }
   .main-banner { margin-bottom: 0; }
   .main-banner-track { border-radius: 26px; }
   .main-banner-track, .main-banner-slide { min-height: 238px; }
@@ -12,8 +12,6 @@
   .preview-card { grid-template-columns: 1fr; height: auto; gap: 18px; }
   .preview-top, .stats, .novel-card { grid-column: 1; grid-row: auto; }
   .novel-card { min-height: 170px; }
-  .hero-title { font-size: 44px; }
-  .hero-description { font-size: 16px; }
   .library-title-row { align-items: flex-start; flex-direction: column; }
   .library-title-row h1, .library-head h1 { font-size: 42px; }
   .library-grid { grid-template-columns: 1fr; }
@@ -42,11 +40,8 @@
   .main-banner h2 { margin-bottom: 12px; font-size: 26px; line-height: 1.18; }
   .main-banner p { font-size: 14px; line-height: 1.6; }
   .main-banner-controls { bottom: 9px; }
-  .hero-title { margin-bottom: 18px; font-size: 42px; }
-  .hero-description { margin-bottom: 24px; font-size: 15px; line-height: 1.6; }
   .preview-card { padding: 16px; border-radius: 24px; }
   .preview-top { margin-bottom: 18px; }
-  .preview-title { font-size: 24px; }
   .preview-type-label { min-height: 48px; }
   .preview-type-label select { width: var(--preview-type-width, 86px); height: 42px; padding-left: 8px; padding-right: 24px; background-position: right 4px center; font-size: 22px; }
   .move-button { width: 48px; height: 48px; border-radius: 16px; }

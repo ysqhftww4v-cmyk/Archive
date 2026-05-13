@@ -3,7 +3,6 @@
   const readingCount = document.querySelector("#readingCount");
   const completedCount = document.querySelector("#completedCount");
   const pausedCount = document.querySelector("#pausedCount");
-  const contentTag = document.querySelector("#contentTag");
   const contentRating = document.querySelector("#contentRating");
   const contentTitle = document.querySelector("#contentTitle");
   const contentAuthor = document.querySelector("#contentAuthor");
@@ -11,7 +10,7 @@
   const prevWorkButton = document.querySelector(".prev-work-button");
   const nextWorkButton = document.querySelector(".next-work-button");
 
-  if (!previewTypeSelect || !readingCount || !completedCount || !pausedCount || !contentTag || !contentRating || !contentTitle || !contentAuthor || !contentDescription) return;
+  if (!previewTypeSelect || !readingCount || !completedCount || !pausedCount || !contentRating || !contentTitle || !contentAuthor || !contentDescription) return;
 
   const works = getTypeWorks(type);
   const counts = getStatusCounts(works);
@@ -28,7 +27,6 @@
   if (state.currentWorkIndex < 0) state.currentWorkIndex = works.length - 1;
 
   if (works.length === 0) {
-    contentTag.textContent = "";
     contentRating.textContent = "";
     contentTitle.textContent = "등록된 작품이 없습니다.";
     contentAuthor.textContent = "";
@@ -41,7 +39,6 @@
   }
 
   const currentWork = works[state.currentWorkIndex];
-  contentTag.textContent = "";
   contentRating.textContent = currentWork.rating ? `★ ${currentWork.rating}` : "";
   contentTitle.textContent = currentWork.title;
   contentAuthor.textContent = currentWork.author || "작가 미입력";
@@ -139,17 +136,9 @@ function renderMainBanner(index) {
 
   slides.forEach((slide, slideIndex) => {
     const isActive = slideIndex === mainBannerState.currentIndex;
-    const previousIndex = (mainBannerState.currentIndex - 1 + slides.length) % slides.length;
-    const nextIndex = (mainBannerState.currentIndex + 1) % slides.length;
 
-    slide.classList.remove("prev", "active", "next");
     slide.classList.toggle("active", isActive);
-    slide.classList.toggle("prev", slides.length > 1 && slideIndex === previousIndex);
-    slide.classList.toggle("next", slides.length > 1 && slideIndex === nextIndex);
     slide.setAttribute("aria-hidden", String(!isActive));
-    slide.querySelectorAll("a, button").forEach((element) => {
-      element.tabIndex = isActive ? 0 : -1;
-    });
   });
 
   dots.forEach((dot, dotIndex) => {
@@ -181,21 +170,10 @@ function startMainBannerAutoPlay() {
   }, mainBannerState.interval);
 }
 
-function moveMainBanner(direction) {
-  const nextIndex = direction === "prev"
-    ? mainBannerState.currentIndex - 1
-    : mainBannerState.currentIndex + 1;
-
-  renderMainBanner(nextIndex);
-  startMainBannerAutoPlay();
-}
-
 function initMainBanner() {
   const banner = document.querySelector(".main-banner");
   const slides = getMainBannerSlides();
   const dotsContainer = document.querySelector(".main-banner-dots");
-  const prevButton = document.querySelector(".prev-banner-button");
-  const nextButton = document.querySelector(".next-banner-button");
 
   if (!banner || slides.length === 0 || !dotsContainer) {
     return;
@@ -211,14 +189,6 @@ function initMainBanner() {
       startMainBannerAutoPlay();
     });
   });
-
-  if (prevButton) {
-    prevButton.addEventListener("click", () => moveMainBanner("prev"));
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener("click", () => moveMainBanner("next"));
-  }
 
   banner.addEventListener("mouseenter", stopMainBannerAutoPlay);
   banner.addEventListener("mouseleave", startMainBannerAutoPlay);

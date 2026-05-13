@@ -55,7 +55,7 @@
       <main class="hero">
         <section class="main-banner" aria-label="추천 배너">
           <div class="main-banner-track">
-            <article class="main-banner-slide active" data-banner-index="0">
+            <article class="main-banner-slide active">
               <div>
                 <span class="main-banner-kicker">오늘의 정리</span>
                 <h2>읽는 중인 작품을<br />한 번에 이어보세요</h2>
@@ -63,7 +63,7 @@
               </div>
             </article>
 
-            <article class="main-banner-slide" data-banner-index="1">
+            <article class="main-banner-slide">
               <div>
                 <span class="main-banner-kicker">나만의 기록</span>
                 <h2>취향별 작품을<br />태그로 묶어보세요</h2>
@@ -71,7 +71,7 @@
               </div>
             </article>
 
-            <article class="main-banner-slide" data-banner-index="2">
+            <article class="main-banner-slide">
               <div>
                 <span class="main-banner-kicker">최근기록</span>
                 <h2>방금 수정한 작품을<br />놓치지 마세요</h2>
@@ -85,34 +85,16 @@
           </div>
         </section>
 
-        <section class="hero-content">
-          <h1 class="hero-title">
-            내 취향을 한눈에
-            <br />
-            보는 <span>작은 서재</span>
-          </h1>
-          <p class="hero-description">
-            웹툰, 웹소설, 만화, 애니에 대한 나만의 작은 도서관입니다.
-            <br />
-            시간 절약, 기억 보관, 즐겨보는 작품 관리까지 한곳에서 정리하세요.
-          </p>
-          <div class="hero-actions">
-            <a href="library.html?page=library" class="button-primary">기록 시작하기</a>
-          </div>
-        </section>
-
         <aside class="preview-card">
           <div class="preview-top">
-            <div class="preview-title-wrap">
-              <label class="preview-type-label" aria-label="미리보기 구분">
-                <select id="previewTypeSelect">
-                  <option value="webtoon">웹툰</option>
-                  <option value="webnovel">웹소설</option>
-                  <option value="manga">만화</option>
-                  <option value="anime">애니</option>
-                </select>
-              </label>
-            </div>
+            <label class="preview-type-label" aria-label="미리보기 구분">
+              <select id="previewTypeSelect">
+                <option value="webtoon">웹툰</option>
+                <option value="webnovel">웹소설</option>
+                <option value="manga">만화</option>
+                <option value="anime">애니</option>
+              </select>
+            </label>
             <div class="preview-controls">
               <button class="move-button icon-button prev-work-button" type="button" aria-label="이전 작품">
                 <img src="../image/left.svg" alt="" aria-hidden="true" />
@@ -140,7 +122,6 @@
 
           <div class="novel-card">
             <div class="novel-card-top">
-              <span class="tag" id="contentTag"></span>
               <span class="rating" id="contentRating"></span>
             </div>
             <div class="novel-card-title-row">
