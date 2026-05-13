@@ -129,13 +129,31 @@
               <img src="../image/download.svg" alt="" aria-hidden="true" />
             </button>
 
-            <button class="tool-button import-works-button" type="button" aria-label="JSON 가져오기">
-              <img src="../image/upload.svg" alt="" aria-hidden="true" />
-            </button>
+            <div class="backup-action-wrap">
+              <button class="tool-button import-works-button" type="button" aria-label="JSON 관리" aria-haspopup="menu" aria-expanded="false">
+                <img src="../image/upload.svg" alt="" aria-hidden="true" />
+              </button>
+
+              <div class="backup-menu" role="menu" hidden>
+                <button class="backup-menu-item import-file-button" type="button" role="menuitem">파일 업로드</button>
+                <button class="backup-menu-item reset-works-button" type="button" role="menuitem">초기화</button>
+              </div>
+            </div>
 
             <input id="importWorksInput" type="file" accept="application/json,.json" hidden />
           </div>
         </section>
+
+        <div class="delete-confirm-box reset-confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="resetConfirmTitle" data-return-focus=".import-works-button">
+          <div class="delete-confirm-panel">
+            <h3 id="resetConfirmTitle">목록 초기화</h3>
+            <p>저장된 작품 목록을 초기 상태로 되돌릴까요?</p>
+            <div>
+              <button class="delete-cancel-button reset-cancel-button" type="button">취소</button>
+              <button class="delete-confirm-button reset-confirm-button" type="button">초기화</button>
+            </div>
+          </div>
+        </div>
 
         <section class="library-grid" id="libraryGrid"></section>
       </main>

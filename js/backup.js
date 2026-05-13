@@ -1,45 +1,111 @@
-﻿function initBackupTools() {
-  const exportButton = document.querySelector(".export-works-button");
-  const importButton = document.querySelector(".import-works-button");
-  const importInput = document.querySelector("#importWorksInput");
-  if (!exportButton || !importButton || !importInput) return;
+function initBackupTools() {
+  const elements = getBackupToolElements();
+  if (!elements) return;
+
+  const { exportButton, importButton, backupMenu, importFileButton, resetButton, resetConfirmBox, resetCancelButton, resetConfirmButton, importInput } = elements;
   initResponsiveBackupTools();
 
-  exportButton.addEventListener("click", () => {
-    const payload = { app: "Little Library", exportedAt: new Date().toISOString(), works: getWorks() };
-    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = `도서관-${formatExportDate()}.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
+  function closeBackupMenu() {
+    backupMenu.hidden = true;
+    setButtonExpanded(importButton, false);
+  }
+
+  function toggleBackupMenu() {
+    const shouldOpen = backupMenu.hidden;
+    backupMenu.hidden = !shouldOpen;
+    setButtonExpanded(importButton, shouldOpen);
+  }
+
+  exportButton.addEventListener("click", exportWorks);
+
+  importButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    toggleBackupMenu();
   });
 
-  importButton.addEventListener("click", () => importInput.click());
+  backupMenu.addEventListener("click", (event) => event.stopPropagation());
+
+  importFileButton.addEventListener("click", () => {
+    closeBackupMenu();
+    importInput.click();
+  });
+
+  resetButton.addEventListener("click", () => {
+    closeBackupMenu();
+    openConfirmBox(resetConfirmBox, resetConfirmButton);
+  });
+
+  bindConfirmBox({
+    confirmBox: resetConfirmBox,
+    returnFocusButton: importButton,
+    cancelButton: resetCancelButton,
+    confirmButton: resetConfirmButton,
+    onConfirm: resetWorksToDefault
+  });
+
+  document.addEventListener("click", closeBackupMenu);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeBackupMenu();
+  });
 
   importInput.addEventListener("change", () => {
     const file = importInput.files?.[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.addEventListener("load", () => {
-      try {
-        const parsed = JSON.parse(String(reader.result || ""));
-        const importedWorks = Array.isArray(parsed) ? parsed : parsed.works;
-        if (!Array.isArray(importedWorks)) throw new Error("Invalid works data");
-        const mergedWorks = mergeWorks(getWorks(), importedWorks);
-        saveWorks(mergedWorks);
-        refreshVisibleViews({ syncGenres: true });
-      } catch {
-        alert("가져올 수 없는 JSON 파일입니다.");
-      } finally {
-        importInput.value = "";
-      }
-    });
-    reader.readAsText(file);
+    if (file) importWorksFile(file, importInput);
   });
+}
+
+function getBackupToolElements() {
+  const elements = {
+    exportButton: document.querySelector(".export-works-button"),
+    importButton: document.querySelector(".import-works-button"),
+    backupMenu: document.querySelector(".backup-menu"),
+    importFileButton: document.querySelector(".import-file-button"),
+    resetButton: document.querySelector(".reset-works-button"),
+    resetConfirmBox: document.querySelector(".reset-confirm-box"),
+    resetCancelButton: document.querySelector(".reset-cancel-button"),
+    resetConfirmButton: document.querySelector(".reset-confirm-button"),
+    importInput: document.querySelector("#importWorksInput")
+  };
+
+  return Object.values(elements).every(Boolean) ? elements : null;
+}
+
+function exportWorks() {
+  const payload = { app: "Little Library", exportedAt: new Date().toISOString(), works: getWorks() };
+  const blob = new Blob([JSON.stringify(payload, null, 2)], { type: "application/json" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+
+  link.href = url;
+  link.download = `도서관-${formatExportDate()}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+function importWorksFile(file, importInput) {
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    try {
+      saveWorks(mergeWorks(getWorks(), parseImportedWorks(reader.result)));
+      refreshVisibleViews({ syncGenres: true });
+    } catch {
+      alert("가져올 수 없는 JSON 파일입니다.");
+    } finally {
+      importInput.value = "";
+    }
+  });
+
+  reader.readAsText(file);
+}
+
+function parseImportedWorks(fileContent) {
+  const parsed = JSON.parse(String(fileContent || ""));
+  const importedWorks = Array.isArray(parsed) ? parsed : parsed.works;
+  if (!Array.isArray(importedWorks)) throw new Error("Invalid works data");
+  return importedWorks;
 }
 
 function initResponsiveBackupTools() {
@@ -89,6 +155,7 @@ function normalizeDateValue(value, fallback) {
 
 function normalizeImportedWork(work) {
   if (!work || typeof work !== "object") return null;
+
   const now = new Date().toISOString();
   const title = String(work.title || "").trim();
   const importedRating = String(work.rating || "").trim();
@@ -96,7 +163,9 @@ function normalizeImportedWork(work) {
   const normalizedGenre = importedGenre || defaultGenre;
   const createdAt = normalizeDateValue(work.createdAt, now);
   const updatedAt = normalizeDateValue(work.updatedAt, createdAt);
+
   if (!title) return null;
+
   return {
     id: Number(work.id) || Date.now() + Math.floor(Math.random() * 100000),
     title,

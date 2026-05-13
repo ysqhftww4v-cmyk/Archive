@@ -62,6 +62,17 @@ function syncPreviewTypeWidth(previewTypeSelect) {
   previewTypeSelect.style.setProperty("--preview-type-width", typeWidths[previewTypeSelect.value] || "92px");
 }
 
+function movePreviewWork(direction) {
+  const works = getTypeWorks(state.currentType);
+  if (works.length <= 1) return;
+
+  const lastIndex = works.length - 1;
+  state.currentWorkIndex = direction === "prev"
+    ? (state.currentWorkIndex === 0 ? lastIndex : state.currentWorkIndex - 1)
+    : (state.currentWorkIndex === lastIndex ? 0 : state.currentWorkIndex + 1);
+  renderMainPreview(state.currentType);
+}
+
 function initMainPreview() {
   const previewTypeSelect = document.querySelector("#previewTypeSelect");
   const prevWorkButton = document.querySelector(".prev-work-button");
@@ -82,21 +93,11 @@ function initMainPreview() {
   }
 
   if (prevWorkButton) {
-    prevWorkButton.addEventListener("click", () => {
-      const works = getTypeWorks(state.currentType);
-      if (works.length <= 1) return;
-      state.currentWorkIndex = state.currentWorkIndex === 0 ? works.length - 1 : state.currentWorkIndex - 1;
-      renderMainPreview(state.currentType);
-    });
+    prevWorkButton.addEventListener("click", () => movePreviewWork("prev"));
   }
 
   if (nextWorkButton) {
-    nextWorkButton.addEventListener("click", () => {
-      const works = getTypeWorks(state.currentType);
-      if (works.length <= 1) return;
-      state.currentWorkIndex = state.currentWorkIndex === works.length - 1 ? 0 : state.currentWorkIndex + 1;
-      renderMainPreview(state.currentType);
-    });
+    nextWorkButton.addEventListener("click", () => movePreviewWork("next"));
   }
 
   if (previewWorkCard) {

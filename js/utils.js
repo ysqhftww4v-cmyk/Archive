@@ -44,25 +44,34 @@ function refreshVisibleViews(options = {}) {
   if (typeof renderMainPreview === "function") renderMainPreview(state.currentType);
 }
 
+function getDefaultWorksSnapshot() {
+  return defaultWorks.map((work) => ({ ...work }));
+}
+
+function resetWorksToDefault() {
+  saveWorks(getDefaultWorksSnapshot());
+  refreshVisibleViews({ syncGenres: true });
+}
+
 function getWorks() {
   if (worksCache) return worksCache;
   const savedWorks = localStorage.getItem(STORAGE_KEY);
 
   if (!savedWorks) {
-    saveWorks(defaultWorks);
+    saveWorks(getDefaultWorksSnapshot());
     return worksCache;
   }
 
   try {
     const parsedWorks = JSON.parse(savedWorks);
     if (!Array.isArray(parsedWorks)) {
-      saveWorks(defaultWorks);
+      saveWorks(getDefaultWorksSnapshot());
       return worksCache;
     }
     worksCache = parsedWorks;
     return worksCache;
   } catch {
-    saveWorks(defaultWorks);
+    saveWorks(getDefaultWorksSnapshot());
     return worksCache;
   }
 }
@@ -378,6 +387,38 @@ function getEmptyMessage() {
 
 function setButtonExpanded(button, expanded) {
   if (button) button.setAttribute("aria-expanded", String(expanded));
+}
+
+function openConfirmBox(confirmBox, focusTarget) {
+  if (!confirmBox) return;
+  confirmBox.classList.add("active");
+  if (focusTarget) focusTarget.focus();
+}
+
+function closeConfirmBox(confirmBox, focusTarget) {
+  if (!confirmBox) return;
+  confirmBox.classList.remove("active");
+  if (focusTarget === false) return;
+  const returnFocusSelector = confirmBox.dataset.returnFocus;
+  const returnFocusTarget = focusTarget || (returnFocusSelector ? document.querySelector(returnFocusSelector) : null);
+  if (returnFocusTarget) returnFocusTarget.focus();
+}
+
+function bindConfirmBox(options) {
+  const { confirmBox, triggerButton, returnFocusButton = triggerButton, cancelButton, confirmButton, onConfirm, restoreFocusOnConfirm = true } = options;
+  if (!confirmBox || !cancelButton || !confirmButton || typeof onConfirm !== "function") return;
+
+  if (triggerButton) {
+    triggerButton.addEventListener("click", () => openConfirmBox(confirmBox, confirmButton));
+  }
+  confirmBox.addEventListener("click", (event) => {
+    if (event.target === confirmBox) closeConfirmBox(confirmBox, returnFocusButton);
+  });
+  cancelButton.addEventListener("click", () => closeConfirmBox(confirmBox, returnFocusButton));
+  confirmButton.addEventListener("click", () => {
+    onConfirm();
+    closeConfirmBox(confirmBox, restoreFocusOnConfirm ? returnFocusButton : false);
+  });
 }
 
 function syncCustomScrollbar(scrollContainer, scrollbar, thumb, options = {}) {

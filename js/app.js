@@ -2,6 +2,10 @@
   document.addEventListener("keydown", (event) => {
     const activeModal = document.querySelector(".work-modal.active");
     const activeConfirmBox = document.querySelector(".delete-confirm-box.active");
+    if (activeConfirmBox && event.key === "Tab") {
+      keepFocusInModal(event, activeConfirmBox);
+      return;
+    }
     if (activeModal && event.key === "Tab") {
       keepFocusInModal(event, activeConfirmBox || activeModal);
       return;
@@ -9,8 +13,7 @@
     if (event.key !== "Escape") return;
     const activeMenu = document.querySelector(".dropdown-menu.active");
     if (activeConfirmBox) {
-      activeConfirmBox.classList.remove("active");
-      document.querySelector(".detail-delete-button")?.focus();
+      closeConfirmBox(activeConfirmBox);
       return;
     }
     if (activeModal) {

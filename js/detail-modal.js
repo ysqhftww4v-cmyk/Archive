@@ -21,7 +21,7 @@
         <button class="detail-delete-button" type="button">삭제하기</button>
         <button class="button-primary detail-edit-button" type="button">수정하기</button>
       </div>
-      <div class="delete-confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="deleteConfirmTitle">
+      <div class="delete-confirm-box" role="alertdialog" aria-modal="true" aria-labelledby="deleteConfirmTitle" data-return-focus=".detail-delete-button">
         <div class="delete-confirm-panel">
           <h3 id="deleteConfirmTitle">작품 삭제</h3>
           <p>이 작품을 삭제할까요?</p>
@@ -54,7 +54,7 @@ function renderDetailModal(work) {
   const nextButton = state.detailModal.querySelector(".detail-next-button");
   const tags = parseTags(work.tags);
   title.innerHTML = `<span>${escapeHTML(work.title)}</span><small>${escapeHTML(work.author || "작가 미입력")}</small>`;
-  if (confirmBox) confirmBox.classList.remove("active");
+  if (confirmBox) closeConfirmBox(confirmBox, false);
   body.innerHTML = `
     <div class="detail-meta">
       <span>${escapeHTML(typeText[work.type])}</span>
@@ -138,23 +138,16 @@ function bindDetailModalEvents() {
     state.returnDetailWorkId = work.id;
     openWorkFormModal("edit", work);
   });
-  deleteButton.addEventListener("click", () => {
-    confirmBox.classList.add("active");
-    confirmDeleteButton.focus();
-  });
-  confirmBox.addEventListener("click", (event) => {
-    if (event.target === confirmBox) {
-      confirmBox.classList.remove("active");
-      deleteButton.focus();
+  bindConfirmBox({
+    confirmBox,
+    triggerButton: deleteButton,
+    cancelButton: cancelDeleteButton,
+    confirmButton: confirmDeleteButton,
+    restoreFocusOnConfirm: false,
+    onConfirm() {
+      const work = getWorkById(state.detailModal.dataset.id);
+      if (work) deleteWork(work.id);
     }
-  });
-  cancelDeleteButton.addEventListener("click", () => {
-    confirmBox.classList.remove("active");
-    deleteButton.focus();
-  });
-  confirmDeleteButton.addEventListener("click", () => {
-    const work = getWorkById(state.detailModal.dataset.id);
-    if (work) deleteWork(work.id);
   });
 }
 
